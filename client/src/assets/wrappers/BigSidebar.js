@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
 const Wrapper = styled.aside`
   display: none;
@@ -57,10 +57,11 @@ const Wrapper = styled.aside`
     }
     .active {
       color: var(--grey-900);
+      background: var(--primary-200);
     }
     .active .icon {
       color: var(--primary-500);
     }
   }
-`
-export default Wrapper
+`;
+export default Wrapper;

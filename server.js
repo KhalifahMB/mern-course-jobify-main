@@ -1,33 +1,33 @@
-import express from 'express';
+import express from "express";
 const app = express();
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
 dotenv.config();
-import 'express-async-errors';
-import morgan from 'morgan';
+import "express-async-errors";
+import morgan from "morgan";
 
-import { dirname } from 'path';
-import { fileURLToPath } from 'url';
-import path from 'path';
+import { dirname } from "path";
+import { fileURLToPath } from "url";
+import path from "path";
 
-import helmet from 'helmet';
-import xss from 'xss-clean';
-import mongoSanitize from 'express-mongo-sanitize';
-import cookieParser from 'cookie-parser';
+import helmet from "helmet";
+import xss from "xss-clean";
+import mongoSanitize from "express-mongo-sanitize";
+import cookieParser from "cookie-parser";
 // hello
 // db and authenticateUser
-import connectDB from './db/connect.js';
+import connectDB from "./db/connect.js";
 
 // routers
-import authRouter from './routes/authRoutes.js';
-import jobsRouter from './routes/jobsRoutes.js';
+import authRouter from "./routes/authRoutes.js";
+import jobsRouter from "./routes/jobsRoutes.js";
 
 // middleware
-import notFoundMiddleware from './middleware/not-found.js';
-import errorHandlerMiddleware from './middleware/error-handler.js';
-import authenticateUser from './middleware/auth.js';
+import notFoundMiddleware from "./middleware/not-found.js";
+import errorHandlerMiddleware from "./middleware/error-handler.js";
+import authenticateUser from "./middleware/auth.js";
 
-if (process.env.NODE_ENV !== 'production') {
-  app.use(morgan('dev'));
+if (process.env.NODE_ENV !== "production") {
+  app.use(morgan("dev"));
 }
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -41,8 +41,8 @@ app.use(xss());
 app.use(mongoSanitize());
 app.use(cookieParser());
 
-app.use('/api/v1/auth', authRouter);
-app.use('/api/v1/jobs', authenticateUser, jobsRouter);
+app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/jobs", authenticateUser, jobsRouter);
 
 // only when ready to deploy
 // app.get('*', (req, res) => {
@@ -61,8 +61,27 @@ const start = async () => {
       console.log(`Server is listening on port ${port}...`);
     });
   } catch (error) {
-    console.log(error);
+    console.log("error");
   }
 };
 
 start();
+
+// import { readFile } from 'fs/promises';
+// import Job from './models/Job.js';
+// const addJobdToDb = async () => {
+//   try {
+//     const jsonProducts = JSON.parse(
+//       await readFile(new URL('./mock-data.json', import.meta.url))
+//     )
+//     await Job.create(jsonProducts);
+//     console.log('Success!!!');
+//     // console.log(jsonProducts)
+
+//   } catch (e) {
+//   console.log('error adding jobs to db' + e);
+//   }
+
+// }
+
+// addJobdToDb()

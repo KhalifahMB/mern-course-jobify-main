@@ -37,9 +37,11 @@ const UserSchema = new mongoose.Schema({
     maxlength: 20,
     default: 'my city',
   },
-})
+}, {timestamps: true}
+)
 
 UserSchema.pre('save', async function () {
+  // console.log(this)
   // console.log(this.modifiedPaths())
   if (!this.isModified('password')) return
   const salt = await bcrypt.genSalt(10)
