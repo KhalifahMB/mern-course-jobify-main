@@ -25,9 +25,10 @@ import jobsRouter from "./routes/jobsRoutes.js";
 import notFoundMiddleware from "./middleware/not-found.js";
 import errorHandlerMiddleware from "./middleware/error-handler.js";
 import authenticateUser from "./middleware/auth.js";
+import Job from "./models/Job.js";
 
 if (process.env.NODE_ENV !== "production") {
-  app.use(morgan("dev"));
+	app.use(morgan("dev"));
 }
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -55,33 +56,32 @@ app.use(errorHandlerMiddleware);
 const port = process.env.PORT || 5000;
 
 const start = async () => {
-  try {
-    await connectDB(process.env.MONGO_URL);
-    app.listen(port, () => {
-      console.log(`Server is listening on port ${port}...`);
-    });
-  } catch (error) {
-    console.log("error");
-  }
+	try {
+		await connectDB(process.env.MONGO_URL);
+		app.listen(port, () => {
+			console.log(`Server is listening on port ${port}...`);
+		});
+	} catch (error) {
+		console.log("error");
+	}
 };
 
 start();
 
-// import { readFile } from 'fs/promises';
-// import Job from './models/Job.js';
+// import { readFile } from "fs/promises";
+// import Job from "./models/Job.js";
 // const addJobdToDb = async () => {
 //   try {
+//     await Job.deleteMany();
 //     const jsonProducts = JSON.parse(
-//       await readFile(new URL('./mock-data.json', import.meta.url))
-//     )
+//       await readFile(new URL("./mock-data.json", import.meta.url))
+//     );
 //     await Job.create(jsonProducts);
-//     console.log('Success!!!');
-//     // console.log(jsonProducts)
-
+//     console.log("Success!!!");
+// console.log(jsonProducts)
 //   } catch (e) {
-//   console.log('error adding jobs to db' + e);
+//     console.log("error adding jobs to db" + e);
 //   }
+// };
 
-// }
-
-// addJobdToDb()
+// addJobdToDb();

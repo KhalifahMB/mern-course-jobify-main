@@ -1,4 +1,4 @@
-import express from 'express';
+import express from "express";
 const router = express.Router();
 
 import {
@@ -7,13 +7,17 @@ import {
   getAllJobs,
   updateJob,
   showStats,
-} from '../controllers/jobsController.js';
+} from "../controllers/jobsController.js";
 
-import testUser from '../middleware/testUser.js';
+import testUser from "../middleware/testUser.js";
+import isJobCreator from "../middleware/isJobCreator.js";
 
-router.route('/').post(testUser, createJob).get(getAllJobs);
+router.route("/").post(testUser, createJob).get(getAllJobs);
 // remember about :id
-router.route('/stats').get(showStats);
-router.route('/:id').delete(testUser, deleteJob).patch(testUser, updateJob);
+router.route("/stats").get(showStats);
+router
+  .route("/:id")
+  .delete(testUser, isJobCreator, deleteJob)
+  .patch(testUser, isJobCreator, updateJob);
 
 export default router;
