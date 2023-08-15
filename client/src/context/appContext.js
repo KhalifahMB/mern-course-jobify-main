@@ -81,6 +81,7 @@ const AppProvider = ({ children }) => {
 
 	authFetch.interceptors.response.use(
 		(response) => {
+			console.log(response.headers);
 			return response;
 		},
 		(error) => {
